@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://healthstop.com.au/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://healthstop.com.au/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://healthstop.com.au/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestConnection">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestConnectionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestConnectionResult" type="tns:OrderResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="is_error" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="errorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="statusMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="localPurchaseOrders" type="tns:ArrayOfLocalPurchaseOrder" />
+          <s:element minOccurs="0" maxOccurs="1" name="localInvoices" type="tns:ArrayOfLocalInvoice" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLocalPurchaseOrder">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LocalPurchaseOrder" nillable="true" type="tns:LocalPurchaseOrder" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LocalPurchaseOrder">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="local_code" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="supplier_id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="order_datetime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="due_datetime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="itemList" type="tns:ArrayOfLocalPurchaseOrderItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLocalPurchaseOrderItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LocalPurchaseOrderItem" nillable="true" type="tns:LocalPurchaseOrderItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LocalPurchaseOrderItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="quantity" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLocalInvoice">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LocalInvoice" nillable="true" type="tns:LocalInvoice" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LocalInvoice">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="invoice_id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="supplier_code" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="supplierID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="supplierName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="purchaseorder_code" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="freight_inc" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="tax" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="total_inc" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="creation_datetime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="itemList" type="tns:ArrayOfLocalInvoiceItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLocalInvoiceItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LocalInvoiceItem" nillable="true" type="tns:LocalInvoiceItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LocalInvoiceItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="quantity" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="cost_ex" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RRP" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="isGST" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UploadPurchaseOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orders" type="tns:ArrayOfLocalPurchaseOrder" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadPurchaseOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadPurchaseOrdersResult" type="tns:OrderResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadInvoices">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadInvoicesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadInvoicesResult" type="tns:OrderResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarkInvoiceAsDownloaded">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="invoiceID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarkInvoiceAsDownloadedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MarkInvoiceAsDownloadedResult" type="tns:OrderResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestConnectionSoapIn">
+    <wsdl:part name="parameters" element="tns:TestConnection" />
+  </wsdl:message>
+  <wsdl:message name="TestConnectionSoapOut">
+    <wsdl:part name="parameters" element="tns:TestConnectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadPurchaseOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadPurchaseOrders" />
+  </wsdl:message>
+  <wsdl:message name="UploadPurchaseOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadPurchaseOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadInvoicesSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadInvoices" />
+  </wsdl:message>
+  <wsdl:message name="DownloadInvoicesSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadInvoicesResponse" />
+  </wsdl:message>
+  <wsdl:message name="MarkInvoiceAsDownloadedSoapIn">
+    <wsdl:part name="parameters" element="tns:MarkInvoiceAsDownloaded" />
+  </wsdl:message>
+  <wsdl:message name="MarkInvoiceAsDownloadedSoapOut">
+    <wsdl:part name="parameters" element="tns:MarkInvoiceAsDownloadedResponse" />
+  </wsdl:message>
+  <wsdl:portType name="POSWebServiceSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestConnection">
+      <wsdl:input message="tns:TestConnectionSoapIn" />
+      <wsdl:output message="tns:TestConnectionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadPurchaseOrders">
+      <wsdl:input message="tns:UploadPurchaseOrdersSoapIn" />
+      <wsdl:output message="tns:UploadPurchaseOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadInvoices">
+      <wsdl:input message="tns:DownloadInvoicesSoapIn" />
+      <wsdl:output message="tns:DownloadInvoicesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MarkInvoiceAsDownloaded">
+      <wsdl:input message="tns:MarkInvoiceAsDownloadedSoapIn" />
+      <wsdl:output message="tns:MarkInvoiceAsDownloadedSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="POSWebServiceSoap" type="tns:POSWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://healthstop.com.au/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestConnection">
+      <soap:operation soapAction="http://healthstop.com.au/TestConnection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadPurchaseOrders">
+      <soap:operation soapAction="http://healthstop.com.au/UploadPurchaseOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadInvoices">
+      <soap:operation soapAction="http://healthstop.com.au/DownloadInvoices" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkInvoiceAsDownloaded">
+      <soap:operation soapAction="http://healthstop.com.au/MarkInvoiceAsDownloaded" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="POSWebServiceSoap12" type="tns:POSWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://healthstop.com.au/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestConnection">
+      <soap12:operation soapAction="http://healthstop.com.au/TestConnection" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadPurchaseOrders">
+      <soap12:operation soapAction="http://healthstop.com.au/UploadPurchaseOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadInvoices">
+      <soap12:operation soapAction="http://healthstop.com.au/DownloadInvoices" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkInvoiceAsDownloaded">
+      <soap12:operation soapAction="http://healthstop.com.au/MarkInvoiceAsDownloaded" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="POSWebService">
+    <wsdl:port name="POSWebServiceSoap" binding="tns:POSWebServiceSoap">
+      <soap:address location="http://healthstop.com.au/services/PosWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="POSWebServiceSoap12" binding="tns:POSWebServiceSoap12">
+      <soap12:address location="http://healthstop.com.au/services/PosWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
