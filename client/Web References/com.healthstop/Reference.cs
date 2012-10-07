@@ -414,6 +414,8 @@ namespace HealthStopClient.com.healthstop {
         
         private string barcodeField;
         
+        private string descriptionField;
+        
         private double quantityField;
         
         /// <remarks/>
@@ -423,6 +425,16 @@ namespace HealthStopClient.com.healthstop {
             }
             set {
                 this.barcodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
             }
         }
         

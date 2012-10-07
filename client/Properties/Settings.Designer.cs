@@ -128,5 +128,17 @@ namespace HealthStopClient.Properties {
                 return ((string)(this["HealthStopClient_com_healthstop_POSWebService"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://healthstop.com.au/services/PosWebService.asmx")]
+        public string WebService {
+            get {
+                return ((string)(this["WebService"]));
+            }
+            set {
+                this["WebService"] = value;
+            }
+        }
     }
 }

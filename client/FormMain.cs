@@ -83,11 +83,14 @@ namespace HealthStopClient
         private Label GetInvoicesErrorLabel;
         private Label DateLabel;
         private DateTimePicker PODateTimePicker;
-        private CheckedListBox OrdersCheckedListBox;
         private Button GetInvoicesButton;
         private TextBox InvoicesTextBox;
         private RadioListBox AvailableInvoicesRadioListBox;
         private CheckBox UpdateRRPCheckBox;
+        private TextBox OrderTextBox;
+        private RadioListBox OrdersRadioListBox;
+        private TextBox WebServiceTextBox;
+        private Label ServiceLabel;
         private IContainer components;
 
 		
@@ -150,16 +153,19 @@ namespace HealthStopClient
                this.MainTabControl = new System.Windows.Forms.TabControl();
                this.POTab = new System.Windows.Forms.TabPage();
                this.panel2 = new System.Windows.Forms.Panel();
-               this.OrdersCheckedListBox = new System.Windows.Forms.CheckedListBox();
+               this.OrdersRadioListBox = new System.Windows.Forms.RadioListBox();
+               this.OrderTextBox = new System.Windows.Forms.TextBox();
                this.DateLabel = new System.Windows.Forms.Label();
                this.PODateTimePicker = new System.Windows.Forms.DateTimePicker();
                this.SendOrdersButton = new System.Windows.Forms.Button();
                this.SendOrdersErrorLabel = new System.Windows.Forms.Label();
                this.label9 = new System.Windows.Forms.Label();
                this.InvoicesTab = new System.Windows.Forms.TabPage();
+               this.AvailableInvoicesRadioListBox = new System.Windows.Forms.RadioListBox();
                this.InvoicesTextBox = new System.Windows.Forms.TextBox();
                this.GetInvoicesButton = new System.Windows.Forms.Button();
                this.CommitInvoicesErrorLabel = new System.Windows.Forms.Label();
+               this.UpdateRRPCheckBox = new System.Windows.Forms.CheckBox();
                this.CommitInvoicesButton = new System.Windows.Forms.Button();
                this.GetInvoicesErrorLabel = new System.Windows.Forms.Label();
                this.GetPurchaseOrdersButton = new System.Windows.Forms.Button();
@@ -169,8 +175,8 @@ namespace HealthStopClient
                this.GetStocktakeItemsButton = new System.Windows.Forms.Button();
                this.GetStocktakeItemsErrorLabel = new System.Windows.Forms.Label();
                this.CommitStocktakeButton = new System.Windows.Forms.Button();
-               this.UpdateRRPCheckBox = new System.Windows.Forms.CheckBox();
-               this.AvailableInvoicesRadioListBox = new System.Windows.Forms.RadioListBox();
+               this.WebServiceTextBox = new System.Windows.Forms.TextBox();
+               this.ServiceLabel = new System.Windows.Forms.Label();
                this.DatabasesTab.SuspendLayout();
                ((System.ComponentModel.ISupportInitialize)(this.POSSoftwareSplitContainer)).BeginInit();
                this.POSSoftwareSplitContainer.Panel1.SuspendLayout();
@@ -202,7 +208,7 @@ namespace HealthStopClient
                this.DatabasesTab.Location = new System.Drawing.Point(4, 22);
                this.DatabasesTab.Name = "DatabasesTab";
                this.DatabasesTab.Padding = new System.Windows.Forms.Padding(3);
-               this.DatabasesTab.Size = new System.Drawing.Size(885, 497);
+               this.DatabasesTab.Size = new System.Drawing.Size(885, 684);
                this.DatabasesTab.TabIndex = 2;
                this.DatabasesTab.Text = "Databases";
                this.DatabasesTab.UseVisualStyleBackColor = true;
@@ -384,9 +390,9 @@ namespace HealthStopClient
                // 
                this.POSSoftwareGroupBox.Controls.Add(this.MicrosoftRMSRadioButton);
                this.POSSoftwareGroupBox.Controls.Add(this.MYOBRadioButton);
-               this.POSSoftwareGroupBox.Location = new System.Drawing.Point(140, 45);
+               this.POSSoftwareGroupBox.Location = new System.Drawing.Point(140, 6);
                this.POSSoftwareGroupBox.Name = "POSSoftwareGroupBox";
-               this.POSSoftwareGroupBox.Size = new System.Drawing.Size(285, 62);
+               this.POSSoftwareGroupBox.Size = new System.Drawing.Size(285, 101);
                this.POSSoftwareGroupBox.TabIndex = 47;
                this.POSSoftwareGroupBox.TabStop = false;
                this.POSSoftwareGroupBox.Text = "POS Software";
@@ -427,6 +433,8 @@ namespace HealthStopClient
                // 
                // ConnectionTab
                // 
+               this.ConnectionTab.Controls.Add(this.WebServiceTextBox);
+               this.ConnectionTab.Controls.Add(this.ServiceLabel);
                this.ConnectionTab.Controls.Add(this.ConnectionErrorlabel);
                this.ConnectionTab.Controls.Add(this.StoreIDtextBox);
                this.ConnectionTab.Controls.Add(this.PasswordTextBox);
@@ -448,7 +456,7 @@ namespace HealthStopClient
                this.ConnectionErrorlabel.AutoSize = true;
                this.ConnectionErrorlabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                this.ConnectionErrorlabel.ForeColor = System.Drawing.Color.Red;
-               this.ConnectionErrorlabel.Location = new System.Drawing.Point(135, 121);
+               this.ConnectionErrorlabel.Location = new System.Drawing.Point(138, 161);
                this.ConnectionErrorlabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                this.ConnectionErrorlabel.Name = "ConnectionErrorlabel";
                this.ConnectionErrorlabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -481,7 +489,7 @@ namespace HealthStopClient
                // 
                // SaveConnectionSettingsButton
                // 
-               this.SaveConnectionSettingsButton.Location = new System.Drawing.Point(16, 117);
+               this.SaveConnectionSettingsButton.Location = new System.Drawing.Point(16, 156);
                this.SaveConnectionSettingsButton.Name = "SaveConnectionSettingsButton";
                this.SaveConnectionSettingsButton.Size = new System.Drawing.Size(87, 23);
                this.SaveConnectionSettingsButton.TabIndex = 34;
@@ -535,7 +543,7 @@ namespace HealthStopClient
                this.POTab.Location = new System.Drawing.Point(4, 22);
                this.POTab.Name = "POTab";
                this.POTab.Padding = new System.Windows.Forms.Padding(3);
-               this.POTab.Size = new System.Drawing.Size(885, 497);
+               this.POTab.Size = new System.Drawing.Size(885, 684);
                this.POTab.TabIndex = 3;
                this.POTab.Text = "Purchase Orders";
                this.POTab.UseVisualStyleBackColor = true;
@@ -543,7 +551,8 @@ namespace HealthStopClient
                // panel2
                // 
                this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-               this.panel2.Controls.Add(this.OrdersCheckedListBox);
+               this.panel2.Controls.Add(this.OrdersRadioListBox);
+               this.panel2.Controls.Add(this.OrderTextBox);
                this.panel2.Controls.Add(this.DateLabel);
                this.panel2.Controls.Add(this.PODateTimePicker);
                this.panel2.Controls.Add(this.SendOrdersButton);
@@ -551,17 +560,28 @@ namespace HealthStopClient
                this.panel2.Controls.Add(this.label9);
                this.panel2.Location = new System.Drawing.Point(29, 28);
                this.panel2.Name = "panel2";
-               this.panel2.Size = new System.Drawing.Size(479, 650);
+               this.panel2.Size = new System.Drawing.Size(850, 650);
                this.panel2.TabIndex = 46;
                // 
-               // OrdersCheckedListBox
+               // OrdersRadioListBox
                // 
-               this.OrdersCheckedListBox.CheckOnClick = true;
-               this.OrdersCheckedListBox.FormattingEnabled = true;
-               this.OrdersCheckedListBox.Location = new System.Drawing.Point(28, 103);
-               this.OrdersCheckedListBox.Name = "OrdersCheckedListBox";
-               this.OrdersCheckedListBox.Size = new System.Drawing.Size(425, 244);
-               this.OrdersCheckedListBox.TabIndex = 45;
+               this.OrdersRadioListBox.BackColor = System.Drawing.SystemColors.Window;
+               this.OrdersRadioListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+               this.OrdersRadioListBox.FormattingEnabled = true;
+               this.OrdersRadioListBox.Location = new System.Drawing.Point(28, 97);
+               this.OrdersRadioListBox.Name = "OrdersRadioListBox";
+               this.OrdersRadioListBox.Size = new System.Drawing.Size(343, 277);
+               this.OrdersRadioListBox.TabIndex = 51;
+               this.OrdersRadioListBox.SelectedIndexChanged += new System.EventHandler(this.OrdersRadioListBox_SelectedIndexChanged);
+               // 
+               // OrderTextBox
+               // 
+               this.OrderTextBox.Location = new System.Drawing.Point(389, 19);
+               this.OrderTextBox.Multiline = true;
+               this.OrderTextBox.Name = "OrderTextBox";
+               this.OrderTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+               this.OrderTextBox.Size = new System.Drawing.Size(456, 552);
+               this.OrderTextBox.TabIndex = 50;
                // 
                // DateLabel
                // 
@@ -574,7 +594,7 @@ namespace HealthStopClient
                // 
                // PODateTimePicker
                // 
-               this.PODateTimePicker.Location = new System.Drawing.Point(215, 60);
+               this.PODateTimePicker.Location = new System.Drawing.Point(171, 59);
                this.PODateTimePicker.Name = "PODateTimePicker";
                this.PODateTimePicker.Size = new System.Drawing.Size(200, 20);
                this.PODateTimePicker.TabIndex = 43;
@@ -623,10 +643,21 @@ namespace HealthStopClient
                this.InvoicesTab.Location = new System.Drawing.Point(4, 22);
                this.InvoicesTab.Name = "InvoicesTab";
                this.InvoicesTab.Padding = new System.Windows.Forms.Padding(3);
-               this.InvoicesTab.Size = new System.Drawing.Size(885, 497);
+               this.InvoicesTab.Size = new System.Drawing.Size(885, 684);
                this.InvoicesTab.TabIndex = 4;
                this.InvoicesTab.Text = "Invoices";
                this.InvoicesTab.UseVisualStyleBackColor = true;
+               // 
+               // AvailableInvoicesRadioListBox
+               // 
+               this.AvailableInvoicesRadioListBox.BackColor = System.Drawing.SystemColors.Window;
+               this.AvailableInvoicesRadioListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+               this.AvailableInvoicesRadioListBox.FormattingEnabled = true;
+               this.AvailableInvoicesRadioListBox.Location = new System.Drawing.Point(16, 94);
+               this.AvailableInvoicesRadioListBox.Name = "AvailableInvoicesRadioListBox";
+               this.AvailableInvoicesRadioListBox.Size = new System.Drawing.Size(293, 277);
+               this.AvailableInvoicesRadioListBox.TabIndex = 50;
+               this.AvailableInvoicesRadioListBox.SelectedIndexChanged += new System.EventHandler(this.AvailableInvoicesRadioListBox_SelectedIndexChanged);
                // 
                // InvoicesTextBox
                // 
@@ -657,6 +688,18 @@ namespace HealthStopClient
                this.CommitInvoicesErrorLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
                this.CommitInvoicesErrorLabel.Size = new System.Drawing.Size(12, 15);
                this.CommitInvoicesErrorLabel.TabIndex = 46;
+               // 
+               // UpdateRRPCheckBox
+               // 
+               this.UpdateRRPCheckBox.AutoSize = true;
+               this.UpdateRRPCheckBox.Checked = true;
+               this.UpdateRRPCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+               this.UpdateRRPCheckBox.Location = new System.Drawing.Point(202, 429);
+               this.UpdateRRPCheckBox.Name = "UpdateRRPCheckBox";
+               this.UpdateRRPCheckBox.Size = new System.Drawing.Size(93, 17);
+               this.UpdateRRPCheckBox.TabIndex = 45;
+               this.UpdateRRPCheckBox.Text = "Update RRP?";
+               this.UpdateRRPCheckBox.UseVisualStyleBackColor = true;
                // 
                // CommitInvoicesButton
                // 
@@ -728,28 +771,21 @@ namespace HealthStopClient
                this.CommitStocktakeButton.Size = new System.Drawing.Size(75, 23);
                this.CommitStocktakeButton.TabIndex = 0;
                // 
-               // UpdateRRPCheckBox
+               // WebServiceTextBox
                // 
-               this.UpdateRRPCheckBox.AutoSize = true;
-               this.UpdateRRPCheckBox.Checked = true;
-               this.UpdateRRPCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-               this.UpdateRRPCheckBox.Location = new System.Drawing.Point(202, 429);
-               this.UpdateRRPCheckBox.Name = "UpdateRRPCheckBox";
-               this.UpdateRRPCheckBox.Size = new System.Drawing.Size(93, 17);
-               this.UpdateRRPCheckBox.TabIndex = 45;
-               this.UpdateRRPCheckBox.Text = "Update RRP?";
-               this.UpdateRRPCheckBox.UseVisualStyleBackColor = true;
+               this.WebServiceTextBox.Location = new System.Drawing.Point(108, 99);
+               this.WebServiceTextBox.Name = "WebServiceTextBox";
+               this.WebServiceTextBox.Size = new System.Drawing.Size(386, 20);
+               this.WebServiceTextBox.TabIndex = 40;
                // 
-               // AvailableInvoicesRadioListBox
+               // ServiceLabel
                // 
-               this.AvailableInvoicesRadioListBox.BackColor = System.Drawing.SystemColors.Window;
-               this.AvailableInvoicesRadioListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-               this.AvailableInvoicesRadioListBox.FormattingEnabled = true;
-               this.AvailableInvoicesRadioListBox.Location = new System.Drawing.Point(16, 94);
-               this.AvailableInvoicesRadioListBox.Name = "AvailableInvoicesRadioListBox";
-               this.AvailableInvoicesRadioListBox.Size = new System.Drawing.Size(293, 277);
-               this.AvailableInvoicesRadioListBox.TabIndex = 50;
-               this.AvailableInvoicesRadioListBox.SelectedIndexChanged += new System.EventHandler(this.AvailableInvoicesRadioListBox_SelectedIndexChanged);
+               this.ServiceLabel.AutoSize = true;
+               this.ServiceLabel.Location = new System.Drawing.Point(13, 102);
+               this.ServiceLabel.Name = "ServiceLabel";
+               this.ServiceLabel.Size = new System.Drawing.Size(69, 13);
+               this.ServiceLabel.TabIndex = 39;
+               this.ServiceLabel.Text = "WebService:";
                // 
                // FormMain
                // 
@@ -786,6 +822,7 @@ namespace HealthStopClient
           #region Temp Storage
 
           private LocalInvoice[] tempInvoices;
+          private List<LocalPurchaseOrder> tempOrders;
 
           #endregion
 
@@ -854,8 +891,9 @@ namespace HealthStopClient
 			//Load Connection settings
 			StoreIDtextBox.Text = Properties.Settings.Default.store_id;
 			PasswordTextBox.Text = Properties.Settings.Default.password;
-			
-			RMDBTextBox.Text = Properties.Settings.Default.RMDBLocation;
+               WebServiceTextBox.Text = Properties.Settings.Default.WebService;
+
+
 			
 
 			if (Properties.Settings.Default.POSSoftware == "MYOB")
@@ -915,6 +953,11 @@ namespace HealthStopClient
 				 error_message = "Please enter the password for the store ID from the website.";
 				 is_valid = false;
 			  }
+                 else if (WebServiceTextBox.Text == "")
+                 {
+                      error_message = "Please enter URL of the webservice";
+                      is_valid = false;
+                 }
 	            
 			  try
 			  {
@@ -922,8 +965,8 @@ namespace HealthStopClient
 				 {
 	                    
 					Properties.Settings.Default.store_id = StoreIDtextBox.Text;
-					Properties.Settings.Default.password = PasswordTextBox.Text;                    
-					
+					Properties.Settings.Default.password = PasswordTextBox.Text;
+                         Properties.Settings.Default.WebService = WebServiceTextBox.Text;	
 	                   
 					Properties.Settings.Default.Save();
 					ConnectionErrorlabel.Text = "Settings saved successfully";
@@ -1018,7 +1061,9 @@ namespace HealthStopClient
 			ClearErrorMessages();
 			try
 			{
-				OrderResponse newResponse = new POSWebService().TestConnection(Convert.ToInt32(StoreIDtextBox.Text), PasswordTextBox.Text);
+                    var webService = new POSWebService();
+                    webService.Url = WebServiceTextBox.Text;
+				OrderResponse newResponse = webService.TestConnection(Convert.ToInt32(StoreIDtextBox.Text), PasswordTextBox.Text);
 
 				if (newResponse.is_error)
 				{
@@ -1150,22 +1195,22 @@ namespace HealthStopClient
                               }
 
                               int storeID = Convert.ToInt32(StoreIDtextBox.Text);
+                              
+                              
 
-                              List<LocalPurchaseOrder> orders = GetSelectedPurchaseOrders();
                              
-
-                              if (orders.Count > 0)
+                              if (tempOrders.Count > 0)
                               {
-                                   AddLog(orders.Count + " Orders to send",false);
+                                   AddLog(tempOrders.Count + " Orders to send", false);
                                    POSWebService handler = new POSWebService();
+                                   handler.Url =  WebServiceTextBox.Text;
+                                        
+                                   OrderResponse newResponse = handler.UploadPurchaseOrders(storeID, PasswordTextBox.Text, tempOrders.ToArray());
 
-                                   OrderResponse newResponse = handler.UploadPurchaseOrders(storeID, PasswordTextBox.Text, orders.ToArray());
+                                   AddLog(newResponse.statusMessage.Replace("\n", "\r\n"), true);
+                              
 
-                                   if (!newResponse.is_error)
-                                   {
-                                        AddLog(newResponse.statusMessage.Replace("\n","\r\n"), true);
-                                   }
-                                   else
+                                   if (newResponse.is_error)                              
                                    {                                       
                                         AddLog(newResponse.errorMessage.Replace("\n", "\r\n"), true);
                                         SendOrdersErrorLabel.Text = "Error sending Purchase Orders. See log to the right";
@@ -1183,7 +1228,7 @@ namespace HealthStopClient
 
           private void PODateTimePicker_ValueChanged(object sender, EventArgs e)
           {
-               OrdersCheckedListBox.Items.Clear();
+               OrdersRadioListBox.Items.Clear();
                DateTime ordersDate = PODateTimePicker.Value.Date;
 
                var orders = new List<KeyValuePair<int,string>>();
@@ -1192,7 +1237,8 @@ namespace HealthStopClient
                     switch (Properties.Settings.Default.POSSoftware)
                     {
                          case "MYOB":
-                              orders = MYOB.GetLatestPurchaseOrders(ordersDate);
+                              orders = MYOB.GetLatestPurchaseOrders(ordersDate);                              
+                              tempOrders = MYOB.GetSelectedPurchaseOrders(orders.Select(p=>p.Key).ToList());
                               break;
                          case "Microsoft":
                               orders = MicrosoftRMS.GetLatestPurchaseOrders(ordersDate);
@@ -1201,7 +1247,7 @@ namespace HealthStopClient
 
                     foreach (var item in orders)
                     {
-                         OrdersCheckedListBox.Items.Add(item);
+                         OrdersRadioListBox.Items.Add(item);                        
                     }
                }
                catch (Exception ex)
@@ -1209,28 +1255,53 @@ namespace HealthStopClient
                     AddLog(ex.ToString(), false);
                }
 
-          }         
+          }
 
-          private  List<LocalPurchaseOrder> GetSelectedPurchaseOrders()
+          private void DisplayPurchaseOrder(LocalPurchaseOrder order, string supplierName)
           {
-               List<int> orderIDs = new List<int>();
-               List<LocalPurchaseOrder> orders = new List<LocalPurchaseOrder>();
-               foreach (KeyValuePair<int, string> item in OrdersCheckedListBox.CheckedItems)
-               {
-                    orderIDs.Add(item.Key);
+               OrderTextBox.Text = "";
+               string display = "";
+
+               display += "Supplier:\t" + supplierName + "\r\n\r\n";
+               display += "Purchase Order:\t" + order.local_code + "\r\n\r\n";
+
+               
+               display += "Placed On:\t" + order.order_datetime.ToLongDateString() + "\r\n";
+               display += "Order Due:\t" + order.due_datetime.ToLongDateString() + "\r\n\r\n";
+
+               display += "Barcode\t\tQuantity\tDescripition\r\n\r\n";
+
+               foreach (var item in order.itemList)
+               {                    
+                    display += item.barcode + "\t" + item.quantity + "\t" + item.description + "\r\n";
                }
-                              
+
+               display += "\r\n\r\n\r\n\r\n";
+               OrderTextBox.Text = display;
+          }
+
+          private LocalPurchaseOrder GetSelectedPurchaseOrder()
+          {
+               KeyValuePair<int, string> item = (KeyValuePair<int, string>)OrdersRadioListBox.SelectedItem;
+               LocalPurchaseOrder order = new LocalPurchaseOrder();
                switch (Properties.Settings.Default.POSSoftware)
                {
                     case "MYOB":
-                         orders = MYOB.GetSelectedPurchaseOrders(orderIDs);
+                         order = MYOB.GetPurchaseOrderByID(item.Key);
                          break;
-                    case "Microsoft":
-                         orders = MicrosoftRMS.GetSelectedPurchaseOrders(orderIDs);                                        
+                    case "Microsoft":                       
                          break;
                }
-               return orders;
+               return order;
           }
+
+
+          private void OrdersRadioListBox_SelectedIndexChanged(object sender, EventArgs e)
+          {
+               KeyValuePair<int, string> item = (KeyValuePair<int, string>)OrdersRadioListBox.SelectedItem;
+               DisplayPurchaseOrder(GetSelectedPurchaseOrder(), item.Value);
+          }    
+        
 
           private void SeeInvoicesButton_Click(object sender, EventArgs e)
           {    
@@ -1240,15 +1311,15 @@ namespace HealthStopClient
                     //Check if all fields are filled.
                     if ((StoreIDtextBox.Text == "") || (PasswordTextBox.Text == ""))
                     {
-                         GetPurchaseOrdersErrorLabel.Text = "Store ID or Password are empty";
+                         GetInvoicesErrorLabel.Text = "Store ID or Password are empty";
                          return;
                     }
 
                     int storeID = Convert.ToInt32(StoreIDtextBox.Text);
 
-                    List<LocalPurchaseOrder> orders = GetSelectedPurchaseOrders();
-                 
+                   
                     POSWebService handler = new POSWebService();
+                    handler.Url = WebServiceTextBox.Text;
 
                     OrderResponse newResponse = handler.DownloadInvoices(storeID,PasswordTextBox.Text);
 
@@ -1327,7 +1398,6 @@ namespace HealthStopClient
 
                try
                {
-
                     switch (Properties.Settings.Default.POSSoftware)
                     {
                          case "MYOB":
@@ -1352,7 +1422,7 @@ namespace HealthStopClient
                     int storeID = Convert.ToInt32(StoreIDtextBox.Text);
 
                     POSWebService handler = new POSWebService();
-
+                    handler.Url = WebServiceTextBox.Text;
                     OrderResponse newResponse = handler.MarkInvoiceAsDownloaded(storeID, PasswordTextBox.Text, selectedInvoice.invoice_id);
 
                     if (!newResponse.is_error)
@@ -1383,6 +1453,7 @@ namespace HealthStopClient
                KeyValuePair<int, string> item = (KeyValuePair<int, string>) AvailableInvoicesRadioListBox.SelectedItem;
 
                DisplayInvoice(tempInvoices.Where(i=>i.invoice_id == item.Key).First());
-          }          
+          }
+      
 	}	
 }		

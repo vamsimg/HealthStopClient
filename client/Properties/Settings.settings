@@ -29,5 +29,8 @@
     <Setting Name="HealthStopClient_com_healthstop_POSWebService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://healthstop.com.au/services/PosWebService.asmx</Value>
     </Setting>
+    <Setting Name="WebService" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://healthstop.com.au/services/PosWebService.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
