@@ -1161,66 +1161,75 @@ namespace HealthStopClient
           private void SendOrdersButton_Click(object sender, EventArgs e)
           {
                ClearErrorMessages();
-               Cursor.Current = Cursors.WaitCursor;
 
-               // Initializes the variables to pass to the MessageBox.Show method.
-
-               string message = "Are you sure ? This action will send the latest Purchase Orders to HealthStop and submit them to your registered suppliers";
-               string caption = "Confirm ";
-
-               MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-
-               DialogResult result;
-
-               // Displays the MessageBox.
-
-               result = MessageBox.Show(message, caption, buttons);
-
-               if (result == System.Windows.Forms.DialogResult.Yes)
+               if (OrdersRadioListBox.Items.Count <= 0)
                {
-                    if (!MYOB.TestRMDBConnection(RMDBTextBox.Text))
+                    SendOrdersErrorLabel.Text = "No purchase orders available";
+               }
+               else
+               {
+
+                    Cursor.Current = Cursors.WaitCursor;
+
+                    // Initializes the variables to pass to the MessageBox.Show method.
+
+                    string message = "Are you sure ? This action will send the latest Purchase Orders to HealthStop and submit them to your registered suppliers";
+                    string caption = "Confirm ";
+
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+
+                    DialogResult result;
+
+                    // Displays the MessageBox.
+
+                    result = MessageBox.Show(message, caption, buttons);
+
+                    if (result == System.Windows.Forms.DialogResult.Yes)
                     {
-                         GetPurchaseOrdersErrorLabel.Text = "Error see log";
-                         AddLog("Unable to connect to  the Retail Manager database", true);
-                    }
-                    else
-                    {
-                         try
+                         if (!MYOB.TestRMDBConnection(RMDBTextBox.Text))
                          {
-                              //Check if all fields are filled.
-                              if ((StoreIDtextBox.Text == "") || (PasswordTextBox.Text == ""))
+                              GetPurchaseOrdersErrorLabel.Text = "Error see log";
+                              AddLog("Unable to connect to  the Retail Manager database", true);
+                         }
+                         else
+                         {
+                              try
                               {
-                                   GetPurchaseOrdersErrorLabel.Text = "Store ID or Password are empty";
-                                   return;
-                              }
+                                   //Check if all fields are filled.
+                                   if ((StoreIDtextBox.Text == "") || (PasswordTextBox.Text == ""))
+                                   {
+                                        GetPurchaseOrdersErrorLabel.Text = "Store ID or Password are empty";
+                                        return;
+                                   }
 
-                              int storeID = Convert.ToInt32(StoreIDtextBox.Text);
-                              
-                              
+                                   int storeID = Convert.ToInt32(StoreIDtextBox.Text);
 
-                             
-                              if (tempOrders.Count > 0)
-                              {
-                                   AddLog(tempOrders.Count + " Orders to send", false);
-                                   POSWebService handler = new POSWebService();
-                                   handler.Url =  WebServiceTextBox.Text;
-                                        
-                                   OrderResponse newResponse = handler.UploadPurchaseOrders(storeID, PasswordTextBox.Text, tempOrders.ToArray());
 
-                                   AddLog(newResponse.statusMessage.Replace("\n", "\r\n"), true);
-                              
 
-                                   if (newResponse.is_error)                              
-                                   {                                       
-                                        AddLog(newResponse.errorMessage.Replace("\n", "\r\n"), true);
-                                        SendOrdersErrorLabel.Text = "Error sending Purchase Orders. See log to the right";
+
+                                   if (tempOrders.Count > 0)
+                                   {
+                                        AddLog(tempOrders.Count + " Orders to send", false);
+                                        POSWebService handler = new POSWebService();
+                                        handler.Url = WebServiceTextBox.Text;
+
+                                        OrderResponse newResponse = handler.UploadPurchaseOrders(storeID, PasswordTextBox.Text, tempOrders.ToArray());
+
+                                        AddLog(newResponse.statusMessage.Replace("\n", "\r\n"), true);
+
+
+                                        if (newResponse.is_error)
+                                        {
+                                             AddLog(newResponse.errorMessage.Replace("\n", "\r\n"), true);
+                                             SendOrdersErrorLabel.Text = "Error sending Purchase Orders. See log to the right";
+                                        }
                                    }
                               }
-                         }
-                         catch (Exception ex)
-                         {
-                              AddLog(ex.ToString(), true);
-                              GetPurchaseOrdersErrorLabel.Text = "An error has occurred. See log";
+                              catch (Exception ex)
+                              {
+                                   AddLog(ex.ToString(), true);
+                                   SendOrdersErrorLabel.Text = "An error has occurred. See log";
+                              }
                          }
                     }
                }
@@ -1386,66 +1395,73 @@ namespace HealthStopClient
 
           private void CommitInvoicesButton_Click(object sender, EventArgs e)
           {
-               Cursor.Current = Cursors.WaitCursor;
-
-
-               KeyValuePair<int, string> item = (KeyValuePair<int, string>)AvailableInvoicesRadioListBox.SelectedItem;
-               var selectedInvoice = tempInvoices.Where(i => i.invoice_id == item.Key).First();
-
-               bool updateRRP = UpdateRRPCheckBox.Checked;
-
-               AddLog("Committing Invoice #:" + selectedInvoice.invoice_id.ToString(), true);
-
-               try
+               if (AvailableInvoicesRadioListBox.Items.Count <= 0)
                {
-                    switch (Properties.Settings.Default.POSSoftware)
-                    {
-                         case "MYOB":
-                             
-                              AddLog(MYOB.CommitInvoice(selectedInvoice, updateRRP),true);
-                              
-                              break;
-                         case "Microsoft":
-
-                              break;
-                    }
-                    AddLog("Invoice committed successfully", true);
-
-
-                    //Check if all fields are filled.
-                    if ((StoreIDtextBox.Text == "") || (PasswordTextBox.Text == ""))
-                    {
-                         CommitInvoicesErrorLabel.Text = "Store ID or Password are empty";
-                         return;
-                    }
-
-                    int storeID = Convert.ToInt32(StoreIDtextBox.Text);
-
-                    POSWebService handler = new POSWebService();
-                    handler.Url = WebServiceTextBox.Text;
-                    OrderResponse newResponse = handler.MarkInvoiceAsDownloaded(storeID, PasswordTextBox.Text, selectedInvoice.invoice_id);
-
-                    if (!newResponse.is_error)
-                    {
-                         AddLog(newResponse.statusMessage.Replace("\n", "\r\n"), true);                         
-                    }
-                    else
-                    {
-                         AddLog(newResponse.errorMessage.Replace("\n", "\r\n"), true);
-                         CommitInvoicesErrorLabel.Text = "Error updating Invoice.See log to the right";
-                    }
-
-                    tempInvoices = tempInvoices.Where(i => i.invoice_id != selectedInvoice.invoice_id).ToArray();
-                    PopulateInvoices();
+                    CommitInvoicesErrorLabel.Text = "No invoices available";
                }
-               catch (Exception ex)
+               else
                {
-                    AddLog(ex.Message, true);
-                    CommitInvoicesErrorLabel.Text = "An error has occurred. See log";
+
+                    Cursor.Current = Cursors.WaitCursor;
+
+
+                    KeyValuePair<int, string> item = (KeyValuePair<int, string>)AvailableInvoicesRadioListBox.SelectedItem;
+                    var selectedInvoice = tempInvoices.Where(i => i.invoice_id == item.Key).First();
+
+                    bool updateRRP = UpdateRRPCheckBox.Checked;
+
+                    AddLog("Committing Invoice #:" + selectedInvoice.invoice_id.ToString(), true);
+
+                    try
+                    {
+                         switch (Properties.Settings.Default.POSSoftware)
+                         {
+                              case "MYOB":
+
+                                   AddLog(MYOB.CommitInvoice(selectedInvoice, updateRRP), true);
+
+                                   break;
+                              case "Microsoft":
+
+                                   break;
+                         }
+                         AddLog("Invoice committed successfully", true);
+
+
+                         //Check if all fields are filled.
+                         if ((StoreIDtextBox.Text == "") || (PasswordTextBox.Text == ""))
+                         {
+                              CommitInvoicesErrorLabel.Text = "Store ID or Password are empty";
+                              return;
+                         }
+
+                         int storeID = Convert.ToInt32(StoreIDtextBox.Text);
+
+                         POSWebService handler = new POSWebService();
+                         handler.Url = WebServiceTextBox.Text;
+                         OrderResponse newResponse = handler.MarkInvoiceAsDownloaded(storeID, PasswordTextBox.Text, selectedInvoice.invoice_id);
+
+                         if (!newResponse.is_error)
+                         {
+                              AddLog(newResponse.statusMessage.Replace("\n", "\r\n"), true);
+                         }
+                         else
+                         {
+                              AddLog(newResponse.errorMessage.Replace("\n", "\r\n"), true);
+                              CommitInvoicesErrorLabel.Text = "Error updating Invoice.See log to the right";
+                         }
+
+                         tempInvoices = tempInvoices.Where(i => i.invoice_id != selectedInvoice.invoice_id).ToArray();
+                         PopulateInvoices();
+                    }
+                    catch (Exception ex)
+                    {
+                         AddLog(ex.Message, true);
+                         CommitInvoicesErrorLabel.Text = "An error has occurred. See log";
+                    }
+
+                    Cursor.Current = Cursors.Default;
                }
-
-               Cursor.Current = Cursors.Default;
-
           }
 
           private void AvailableInvoicesRadioListBox_SelectedIndexChanged(object sender, EventArgs e)
